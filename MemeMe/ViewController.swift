@@ -17,12 +17,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var topText: UITextField!
     @IBOutlet weak var ButtomText: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
         topText.delegate = self
         ButtomText.delegate = self
         
+        let memeTextAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.strokeColor: UIColor.black,
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+            NSAttributedString.Key.strokeWidth:  10
+        ]
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -62,11 +69,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         textField.resignFirstResponder()
         return true
     }
-    private func textFieldDidBeginEditing(_ textField: UITextField) -> Bool {
-        self.topText.text = ""
-        return true
-        
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if (textField == topText){
+            topText.text = ""
+        }else if (textField == ButtomText){
+            ButtomText.text = ""
     }
-    
 }
-
+}
