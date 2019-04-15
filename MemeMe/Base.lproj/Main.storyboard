@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_5" orientation="portrait">
+    <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -10,16 +10,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Meme Editor View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MemeEditorViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvK-9r-5GG">
-                                <rect key="frame" x="0.0" y="692" width="414" height="44"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvK-9r-5GG" userLabel="BottomBar">
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Ofz-Ph-WWj"/>
                                     <barButtonItem title="Album" id="Rmm-IV-3sr">
@@ -37,48 +37,70 @@
                                 </items>
                             </toolbar>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iSY-GP-t82">
-                                <rect key="frame" x="0.0" y="20" width="414" height="672"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Top Text" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ShE-iO-ISm">
-                                <rect key="frame" x="169" y="20" width="76" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Buttom Text" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UVr-7B-Yqs" userLabel="Bottom Text">
+                                <rect key="frame" x="166" y="786" width="82" height="17"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Buttom Text" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UVr-7B-Yqs">
-                                <rect key="frame" x="157.66666666666666" y="662" width="98.999999999999972" height="30"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LDp-fJ-lhf" userLabel="TopBar">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="action" id="lil-f5-etQ">
+                                        <connections>
+                                            <action selector="shareButton:" destination="BYZ-38-t0r" id="ccP-Cd-ZxF"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="wHB-oM-8Xv"/>
+                                    <barButtonItem systemItem="cancel" id="6xD-ah-Ylx"/>
+                                </items>
+                            </toolbar>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Top Text" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ShE-iO-ISm">
+                                <rect key="frame" x="177.66666666666666" y="98" width="59" height="17"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="UVr-7B-Yqs" firstAttribute="bottom" secondItem="iSY-GP-t82" secondAttribute="bottom" id="ACi-qn-y3S"/>
                             <constraint firstItem="ShE-iO-ISm" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="E4T-lv-WFj"/>
                             <constraint firstAttribute="trailing" secondItem="dvK-9r-5GG" secondAttribute="trailing" id="EoG-0z-OOR"/>
+                            <constraint firstItem="UVr-7B-Yqs" firstAttribute="bottom" secondItem="dvK-9r-5GG" secondAttribute="top" constant="-10" id="GUj-eu-euL"/>
+                            <constraint firstItem="LDp-fJ-lhf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="L7x-ek-dwe"/>
                             <constraint firstItem="dvK-9r-5GG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Nrf-yj-NeA"/>
                             <constraint firstItem="dvK-9r-5GG" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="W4C-9e-Epv"/>
-                            <constraint firstItem="iSY-GP-t82" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hX8-GE-zXI"/>
+                            <constraint firstItem="LDp-fJ-lhf" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="Yfk-Wf-fs3"/>
+                            <constraint firstItem="iSY-GP-t82" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="a2c-l2-bZL"/>
+                            <constraint firstItem="ShE-iO-ISm" firstAttribute="top" secondItem="LDp-fJ-lhf" secondAttribute="bottom" constant="10" id="eYD-on-VkH"/>
                             <constraint firstItem="iSY-GP-t82" firstAttribute="bottom" secondItem="dvK-9r-5GG" secondAttribute="top" id="j2n-Rz-kA5"/>
-                            <constraint firstItem="ShE-iO-ISm" firstAttribute="top" secondItem="iSY-GP-t82" secondAttribute="top" id="kdc-A4-qgW"/>
-                            <constraint firstItem="iSY-GP-t82" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lQg-aU-rKZ"/>
+                            <constraint firstAttribute="leading" secondItem="iSY-GP-t82" secondAttribute="leading" id="oQ9-WT-kb8"/>
                             <constraint firstItem="UVr-7B-Yqs" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="oWR-JS-oGh"/>
-                            <constraint firstItem="iSY-GP-t82" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="sF9-ua-asM"/>
+                            <constraint firstItem="iSY-GP-t82" firstAttribute="top" secondItem="LDp-fJ-lhf" secondAttribute="bottom" id="ptH-Ti-fbF"/>
+                            <constraint firstAttribute="leading" secondItem="LDp-fJ-lhf" secondAttribute="leading" id="r67-aV-hyA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="ButtomText" destination="UVr-7B-Yqs" id="cQY-Aw-Mdv"/>
                         <outlet property="albumButton" destination="Rmm-IV-3sr" id="Iui-GF-J99"/>
+                        <outlet property="bottomTextField" destination="UVr-7B-Yqs" id="zVj-OG-oAf"/>
+                        <outlet property="bottomToolbar" destination="dvK-9r-5GG" id="IV0-WZ-aPL"/>
                         <outlet property="cameraButton" destination="TRH-UQ-ju4" id="mXv-Vw-B9g"/>
+                        <outlet property="cancelButton" destination="6xD-ah-Ylx" id="k4y-Se-NGE"/>
                         <outlet property="imageView" destination="iSY-GP-t82" id="PIW-uA-LHC"/>
-                        <outlet property="topText" destination="ShE-iO-ISm" id="VZ7-Eh-m54"/>
+                        <outlet property="shareButton" destination="LDp-fJ-lhf" id="ZYh-cy-LAd"/>
+                        <outlet property="topTextField" destination="ShE-iO-ISm" id="XJx-Ja-Fm1"/>
+                        <outlet property="topToolbar" destination="LDp-fJ-lhf" id="IN2-Tv-rgu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="47.826086956521742" y="24.456521739130437"/>
+            <point key="canvasLocation" x="47.544642857142854" y="23.188405797101453"/>
         </scene>
     </scenes>
 </document>

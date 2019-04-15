@@ -35,7 +35,9 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>need camera permission to add image</string>
+	<string>MemeMe want to access your camera</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>MemeMe want to access your library</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
