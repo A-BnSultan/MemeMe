@@ -25,10 +25,10 @@ class MemeEditorViewController: UIViewController
     var memedImage = UIImage()
     var meme:Meme!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        shareButton.isEnabled = false
         imagePicker.delegate = self
         topTextField.delegate = self
         bottomTextField.delegate = self
@@ -41,11 +41,9 @@ class MemeEditorViewController: UIViewController
         ]
         topTextField.defaultTextAttributes = memeTextAttributes
         bottomTextField.defaultTextAttributes = memeTextAttributes
-        shareButton.isEnabled = true
         setupTextField(topTextField, text: "TOP TEXT")
         setupTextField(bottomTextField, text: "BOTTOM TEXT")
         
-        // Do any additional setup after loading the view.
     }
     
     func setupTextField(_ textField: UITextField, text: String){
@@ -62,31 +60,42 @@ class MemeEditorViewController: UIViewController
         unsubscribeFromKeyboardNotification()
     }
     
-    @IBAction func pickAnImageFromAlbum(_ sender: Any) {
-        pickAnImage(sourceType: .photoLibrary)
+    @IBAction func shareButton(_ sender: Any) {
+        share()
     }
     
-    @IBAction func pickAnImageFromCamera(_ sender: Any) {
-        pickAnImage(sourceType: .camera)
-    }
-    
-    func pickAnImage(sourceType: UIImagePickerController.SourceType){
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = sourceType
-        imagePicker.delegate = self
-        present(imagePicker, animated: true)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
-        if let possibleImage = info[.originalImage] as? UIImage {
-            imageView.image = possibleImage
-        } else {
-            return
+    func share() {
+        let memeToShare = generateMemedImage()
+        let activity = UIActivityViewController(activityItems: [memeToShare], applicationActivities: nil)
+        activity.completionWithItemsHandler = { (activity, success, items, error) in
+            
+            if success {
+                self.save(memedImage: memeToShare)
+            }
         }
-        dismiss(animated: true)
+        present(activity, animated: true, completion:nil)
     }
     
+    func save(memedImage: UIImage) {
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: memedImage)
+        let object = UIApplication.shared.delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
+    }
+    
+    func hideToolbars() {
+        self.topToolbar.isHidden = true
+        self.bottomToolbar.isHidden = true
+    }
+
+    func showToolbars() {
+        self.topToolbar.isHidden = false
+        self.bottomToolbar.isHidden = false
+    }
+
+}
+// MARK: UITextFieldDelegate extension
+extension MemeEditorViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
         textField.resignFirstResponder()
         return true
@@ -118,31 +127,42 @@ class MemeEditorViewController: UIViewController
     func subscribeToKeyboardNotification(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        }
+    }
     func unsubscribeFromKeyboardNotification(){
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
-    @IBAction func shareButton(_ sender: Any) {
-        share()
+}
+
+// MARK: UIImagePickerControllerDelegate extension
+extension MemeEditorViewController: UIImagePickerControllerDelegate {
+    @IBAction func pickAnImageFromAlbum(_ sender: Any) {
+        pickAnImage(sourceType: .photoLibrary)
     }
     
-    func share() {
-        let memeToShare = generateMemedImage()
-        let activity = UIActivityViewController(activityItems: [memeToShare], applicationActivities: nil)
-        activity.completionWithItemsHandler = { (activity, success, items, error) in
-            
-            if success {
-                self.save(memedImage: memeToShare)
-            }
+    @IBAction func pickAnImageFromCamera(_ sender: Any) {
+        pickAnImage(sourceType: .camera)
+    }
+    
+    func pickAnImage(sourceType: UIImagePickerController.SourceType){
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = sourceType
+        imagePicker.delegate = self
+        present(imagePicker, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let possibleImage = info[.originalImage] as? UIImage {
+            imageView.image = possibleImage
+            shareButton.isEnabled = true
+        } else {
+            return
         }
-        present(activity, animated: true, completion:nil)
+        dismiss(animated: true)
     }
     
     func generateMemedImage() -> UIImage {
-        
-        // Render view to an image
         hideToolbars()
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
@@ -151,25 +171,9 @@ class MemeEditorViewController: UIViewController
         showToolbars()
         return memedImage
     }
-    
-    func save(memedImage: UIImage) {
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: memedImage)
-        (UIApplication.shared.delegate as! AppDelegate).meme.append(meme)
-    }
-    
-    func hideToolbars() {
-        self.topToolbar.isHidden = true
-        self.bottomToolbar.isHidden = true
-    }
-
-    func showToolbars() {
-        self.topToolbar.isHidden = false
-        self.bottomToolbar.isHidden = false
-    }
-
 }
-extension MemeEditorViewController: UITextFieldDelegate {
-}
-extension MemeEditorViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+// MARK: UINavigationControllerDelegate extension
+extension MemeEditorViewController: UINavigationControllerDelegate {
 }
 

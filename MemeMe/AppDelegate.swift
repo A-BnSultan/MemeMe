@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var meme = [Meme]()
+    var memes = [Meme]()
     var editorMeme = Meme(topText: "TOP TEXT", bottomText: "BOTTOM TEXT", originalImage: UIImage(), memedImage: UIImage())
 }
 
